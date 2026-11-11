@@ -1,0 +1,37 @@
+{
+  "case_id": "TC01",
+  "trace_id": "53e5c6d6-14af-4bf0-b0aa-622e34ba95fd",
+  "status": "completed",
+  "elapsed_seconds": 77.75,
+  "output": {
+    "observed_values": {
+      "final_screen": "A02"
+    },
+    "observed_texts": [
+      "Khám phá",
+      "Sắp tới tại TP.HCM",
+      "Tìm một hoạt động phù hợp với bạn",
+      "Tìm sự kiện, CLB...",
+      "Dành cho bạn",
+      "Xem sự kiện a",
+      "Trạng thái: Cần đăng ký",
+      "Còn 50 chỗ",
+      "Câu lạc bộ",
+      "09:00–12:00 · 14/11/2026",
+      "Hạn đăng ký: 09:00 · 13/11/2026",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "CLB Thiết kế FPTU",
+      "14:00–16:30 · 21/11/2026",
+      "Phòng 204 · Campus TP.HCM",
+      "Hạn đăng ký: 18:00 · 20/11/2026",
+      "Khám phá",
+      "Lịch",
+      "Thông báo",
+      "Tài khoản"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

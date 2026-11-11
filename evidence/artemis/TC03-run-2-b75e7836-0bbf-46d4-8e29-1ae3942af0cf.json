@@ -1,0 +1,7 @@
+{
+  "case_id": "TC03",
+  "status": "client_error",
+  "acceptance_status": "not_passed",
+  "elapsed_seconds": 2223.3129999999946,
+  "error_type": "TaskTimeoutError"
+}

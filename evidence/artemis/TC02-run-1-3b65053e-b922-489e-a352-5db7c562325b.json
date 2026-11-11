@@ -1,0 +1,10 @@
+{
+  "case_id": "TC02",
+  "trace_id": "3b65053e-b922-489e-a352-5db7c562325b",
+  "status": "completed",
+  "elapsed_seconds": 14.625,
+  "output": null,
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

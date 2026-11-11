@@ -1,0 +1,12 @@
+{
+  "case_id": "TC02",
+  "trace_id": "cf939c4c-eed7-4f60-9594-12ce8f0b6f3b",
+  "status": "completed",
+  "elapsed_seconds": 44.06200000000172,
+  "output": {
+    "unparsed": "I have successfully navigated to the login screen, tapped Google login, cancelled the Android account picker, and observed the cancellation feedback 'Bạn đã hủy đăng nhập Google.'.\n\n{\"observed_values\":{\"final_screen\":\"A01a\"},\"observed_texts\":[\"EventHub\", \"Đăng nhập\", \"Đăng nhập để khám phá và theo dõi sự kiện.\", \"Email cá nhân *\", \"Mật khẩu *\", \"Quên mật khẩu?\", \"Bạn đã hủy đăng nhập Google.\", \"Đăng nhập\", \"Tiếp tục với Google\", \"Tạo tài khoản\"],\"precondition_failed\":null}"
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

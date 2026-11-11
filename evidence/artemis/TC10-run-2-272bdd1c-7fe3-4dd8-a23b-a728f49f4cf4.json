@@ -1,0 +1,26 @@
+{
+  "case_id": "TC10",
+  "trace_id": "272bdd1c-7fe3-4dd8-a23b-a728f49f4cf4",
+  "status": "completed",
+  "elapsed_seconds": 27.781000000002678,
+  "output": {
+    "observed_values": {
+      "final_screen": "A09"
+    },
+    "observed_texts": [
+      "Thông báo",
+      "Kiểm thử FCM —app đóng",
+      "Đã đọc",
+      "Thông báo gửi khi EventHub đang chạy nền",
+      "Kiểm thử FCM — chạy nền.",
+      "Chưa đọc",
+      "Thông báo gửi khi EventHub đang chạy.",
+      "Kiểm thử FCM — đang mở",
+      "Thông báo vẫn có trong app khi bạn tắt thông báo đẩy."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

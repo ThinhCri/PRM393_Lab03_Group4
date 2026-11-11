@@ -1,0 +1,32 @@
+{
+  "case_id": "TC04",
+  "trace_id": "192792df-17d6-400b-9dd1-83713ce3a289",
+  "status": "completed",
+  "elapsed_seconds": 20.75,
+  "output": {
+    "observed_values": {
+      "final_screen": "A04"
+    },
+    "observed_texts": [
+      "Chi tiết sự kiện",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "CLB Thiết kế FPTU",
+      "14:00–16:30 · 21/11/2026",
+      "Phòng 204 · Campus TP.HCM",
+      "Hạn đăng ký: 18:00 · 20/11/2026",
+      "Giới thiệu",
+      "Thực hành tìm hiểu nhu cầu người dùng, phác thảo giao diện và kiểm thử ý tưởng theo nhóm.",
+      "Bạn sẽ làm gì?",
+      "• Phỏng vấn và tổng hợp insight",
+      "• Phác thảo luồng trải nghiệm",
+      "• Kiểm thử prototype giấy",
+      "Dành cho ai?",
+      "Sinh viên và người quan tâm đến hoạt động.",
+      "Xem đăng ký"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

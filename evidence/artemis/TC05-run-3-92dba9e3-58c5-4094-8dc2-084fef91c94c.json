@@ -1,0 +1,18 @@
+{
+  "case_id": "TC05",
+  "trace_id": "92dba9e3-58c5-4094-8dc2-084fef91c94c",
+  "status": "completed",
+  "elapsed_seconds": 52.31199999999808,
+  "output": {
+    "observed_values": {
+      "final_screen": "A05"
+    },
+    "observed_texts": [
+      "Vui lòng nhập khóa K."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,29 @@
+{
+  "case_id": "TC12",
+  "trace_id": "36ed290c-f6fb-4781-b87b-2f5d3cce048c",
+  "status": "completed",
+  "elapsed_seconds": 123.59399999999732,
+  "output": {
+    "observed_values": {
+      "final_screen": "A11"
+    },
+    "observed_texts": [
+      "Chi tiết đăng ký",
+      "Phiên điểm danh đang đóng. Kiểm tra lại khi CLB mở phiên.",
+      "Đã đăng ký",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "CLB Thiết kế FPTU",
+      "14:00–16:30 · 21/11/2026",
+      "Phòng 204 · Campus TP.HCM",
+      "Hạn đăng ký: 18:00 · 20/11/2026",
+      "Người tham gia",
+      "Huy",
+      "Sinh viên FPTU · K17 (tự khai)",
+      "<TEST_ACCOUNT>"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

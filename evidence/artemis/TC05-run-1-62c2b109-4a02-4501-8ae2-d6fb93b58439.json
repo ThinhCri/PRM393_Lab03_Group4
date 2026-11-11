@@ -1,0 +1,31 @@
+{
+  "case_id": "TC05",
+  "trace_id": "62c2b109-4a02-4501-8ae2-d6fb93b58439",
+  "status": "completed",
+  "elapsed_seconds": 55.3279999999977,
+  "output": {
+    "observed_values": {
+      "final_screen": "A05"
+    },
+    "observed_texts": [
+      "Thông tin đăng ký",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "14:00–16:30 · 21/11/2026",
+      "Họ tên *",
+      "Huy",
+      "Email liên hệ *",
+      "<TEST_ACCOUNT>",
+      "Sinh viên FPTU",
+      "Khách ngoài trường",
+      "Khóa K *",
+      "Vui lòng nhập khóa K.",
+      "Số điện thoại (tùy chọn)",
+      "Nhóm và khóa do bạn tự khai, không xác minh và không giới hạn quyền đăng ký.",
+      "Xác nhận đăng ký"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

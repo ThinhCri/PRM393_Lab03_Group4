@@ -1,0 +1,27 @@
+{
+  "case_id": "TC16",
+  "trace_id": "ddf96fa7-d1c8-434b-8e6c-7e15ea0d13c4",
+  "status": "completed",
+  "elapsed_seconds": 30.889999999999418,
+  "output": {
+    "observed_values": {
+      "final_screen": "L3-01"
+    },
+    "observed_texts": [
+      "Tiện ích Firebase",
+      "Giới hạn gợi ý: 10",
+      "Hiện gợi ý: Bật",
+      "Các giá trị đang dùng sẽ tác động màn Khám phá sau khi lấy cấu hình mới.",
+      "Lấy cấu hình mới",
+      "Bật thông báo trên thiết bị",
+      "Trung tâm thông báo",
+      "Xuất và tải PDF",
+      "Ghi lỗi non-fatal thử nghiệm",
+      "Test crash (debug)"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "TC10",
+  "trace_id": "9d00bdf7-fd36-4c8a-929a-970db13a06c1",
+  "status": "completed",
+  "elapsed_seconds": 48.15599999999904,
+  "output": {
+    "observed_values": {
+      "final_screen": "A09"
+    },
+    "observed_texts": [
+      "Xuất lịch tham gia",
+      "PDF sẽ chứa 2 đăng ký đang hiển thị dưới đây, gồm cả lịch sử đã hủy.",
+      "PDF không chứa email hoặc số điện thoại. Liên kết Cloudinary có thể được mở bởi bất kỳ ai có liên kết.",
+      "Workshop Thiết kế trải nghiệm người dùng\n14:00–16:30 · 21/11/2026\nĐã đăng ký",
+      "Workshop Thiết kế trải nghiệm người dùng (Mẫu)\n14:00–16:30 · 08/11/2026\nĐã hủy đăng ký",
+      "Chưa tải được PDF. Kiểm tra kết nối và cấu hình Cloudinary rồi thử lại.",
+      "Tạo PDF và tải lên"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

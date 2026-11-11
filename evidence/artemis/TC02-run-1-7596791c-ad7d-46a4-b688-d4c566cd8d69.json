@@ -1,0 +1,19 @@
+{
+  "case_id": "TC02",
+  "trace_id": "7596791c-ad7d-46a4-b688-d4c566cd8d69",
+  "status": "failed",
+  "elapsed_seconds": 44.09399999999732,
+  "output": {
+    "observed_values": {
+      "final_screen": null
+    },
+    "observed_texts": [
+      "12:54",
+      "EventHub"
+    ],
+    "precondition_failed": "EventHub app crashes with ANR upon launch and cannot reach the login screen."
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

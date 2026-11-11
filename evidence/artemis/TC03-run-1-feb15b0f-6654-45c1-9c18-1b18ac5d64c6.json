@@ -1,0 +1,21 @@
+{
+  "case_id": "TC03",
+  "trace_id": "feb15b0f-6654-45c1-9c18-1b18ac5d64c6",
+  "status": "completed",
+  "elapsed_seconds": 150.98400000000038,
+  "output": {
+    "observed_values": {
+      "final_screen": "A03"
+    },
+    "observed_texts": [
+      "Tất cả sự kiện",
+      "Tìm sự kiện, CLB...",
+      "Lọc sự kiện",
+      "6 sự kiện"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}
