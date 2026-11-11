@@ -1,0 +1,21 @@
+{
+  "case_id": "TC01",
+  "trace_id": "ec965ec5-5a49-434b-9367-e6c2b1ffe6ca",
+  "status": "completed",
+  "elapsed_seconds": 170.82800000000134,
+  "output": {
+    "observed_values": {
+      "final_screen": "A02"
+    },
+    "observed_texts": [
+      "Khám phá",
+      "Sắp tới tại TP.HCM",
+      "Tìm một hoạt động phù hợp với bạn",
+      "Dành cho bạn"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

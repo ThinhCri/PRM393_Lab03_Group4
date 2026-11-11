@@ -1,0 +1,12 @@
+{
+  "case_id": "TC12",
+  "trace_id": "1982e2a6-bd01-4ab5-ada0-035039f2e6aa",
+  "status": "completed",
+  "elapsed_seconds": 24.81199999999808,
+  "output": {
+    "unparsed": "The application is now on the QR scanning screen as requested. The task is completed."
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

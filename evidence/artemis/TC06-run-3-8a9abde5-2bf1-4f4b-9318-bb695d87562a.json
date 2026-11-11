@@ -1,0 +1,23 @@
+{
+  "case_id": "TC06",
+  "trace_id": "8a9abde5-2bf1-4f4b-9318-bb695d87562a",
+  "status": "completed",
+  "elapsed_seconds": 48.375,
+  "output": {
+    "observed_values": {
+      "final_screen": "A06"
+    },
+    "observed_texts": [
+      "Đăng ký được xác nhận",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "Người tham gia",
+      "Huy",
+      "Khách ngoài trường",
+      "<TEST_ACCOUNT>"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

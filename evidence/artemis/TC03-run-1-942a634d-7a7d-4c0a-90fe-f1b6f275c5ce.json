@@ -1,0 +1,23 @@
+{
+  "case_id": "TC03",
+  "trace_id": "942a634d-7a7d-4c0a-90fe-f1b6f275c5ce",
+  "status": "completed",
+  "elapsed_seconds": 66.65600000000268,
+  "output": {
+    "observed_values": {
+      "final_screen": "A03"
+    },
+    "observed_texts": [
+      "Kết quả tìm kiếm",
+      "zzz_no_event_8362",
+      "Lọc sự kiện",
+      "0 sự kiện",
+      "Chưa tìm thấy sự kiện",
+      "Thử từ khóa khác hoặc đổi bộ lọc."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "TC08",
+  "trace_id": "75adf2a8-8272-49f1-b0b1-c5404dffb64b",
+  "status": "completed",
+  "elapsed_seconds": 106.60899999999674,
+  "output": {
+    "unparsed": "The registration for \"Workshop Thiết kế trải nghiệm người dùng\" is active. I have navigated to the registration detail screen, opened the cancellation dialog, and selected \"Giữ đăng ký\" to keep the registration. The final screen is the active registration detail (A08)."
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

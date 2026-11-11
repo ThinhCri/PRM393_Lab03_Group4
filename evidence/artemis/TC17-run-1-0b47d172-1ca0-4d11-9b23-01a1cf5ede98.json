@@ -1,0 +1,26 @@
+{
+  "case_id": "TC17",
+  "trace_id": "0b47d172-1ca0-4d11-9b23-01a1cf5ede98",
+  "status": "completed",
+  "elapsed_seconds": 47.29699999999866,
+  "output": {
+    "observed_values": {
+      "final_screen": "A01a"
+    },
+    "observed_texts": [
+      "EventHub",
+      "Đăng nhập",
+      "Đăng nhập để khám phá và theo dõi sự kiện.",
+      "Email cá nhân *",
+      "Mật khẩu *",
+      "Quên mật khẩu?",
+      "Đăng nhập",
+      "Tiếp tục với Google",
+      "Tạo tài khoản"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

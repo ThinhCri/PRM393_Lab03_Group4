@@ -1,0 +1,12 @@
+{
+  "case_id": "TC05",
+  "trace_id": "f1078ee0-c6ad-443f-be05-e079ed6c4e5a",
+  "status": "completed",
+  "elapsed_seconds": 27.89100000000326,
+  "output": {
+    "unparsed": "The registration form for \"Workshop Thiết kế trải nghiệm người dùng\" was accessed. Upon attempting to submit the form without filling in the \"Khóa K\" field, the application correctly displayed the error message \"Vui lòng nhập khóa K.\". The objective was to stop at this field error.\n\nObserved texts:\n- \"Workshop Thiết kế trải nghiệm người dùng\"\n- \"Vui lòng nhập khóa K.\""
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

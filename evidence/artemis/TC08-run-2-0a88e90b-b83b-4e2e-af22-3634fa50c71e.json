@@ -1,0 +1,12 @@
+{
+  "case_id": "TC08",
+  "trace_id": "0a88e90b-b83b-4e2e-af22-3634fa50c71e",
+  "status": "completed",
+  "elapsed_seconds": 37.0309999999954,
+  "output": {
+    "unparsed": "I have successfully navigated to the registration detail page for the \"Workshop Thiết kế trải nghiệm người dùng\" event, verified the active registration, and confirmed the details as requested. The registration is active and I have chosen to keep it. The final screen is A08."
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

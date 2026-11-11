@@ -1,0 +1,12 @@
+{
+  "case_id": "TC10",
+  "trace_id": "8ef39749-8917-400d-9a12-3f98340334c0",
+  "status": "completed",
+  "elapsed_seconds": 48.46800000000076,
+  "output": {
+    "unparsed": "The Notifications screen (A09) was accessed, and the notification list was observed. The notification texts are: \"Kiểm thử FCM —app đóng\", \"Kiểm thử FCM — chạy nền.\", \"Kiểm thử FCM — chạy nền.\", \"Kiểm thử FCM — chạy nền.\", \"Kiểm thử FCM — chạy nền.\", \"Kiểm thử FCM — đang mở\", \"Kiểm thử FCM — đang mở\", along with their respective read/unread statuses and descriptions. The task is completed."
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

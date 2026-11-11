@@ -1,0 +1,20 @@
+{
+  "case_id": "TC02",
+  "trace_id": "71b3322a-0f82-4c2d-a8b2-c9ccae9ce621",
+  "status": "completed",
+  "elapsed_seconds": 42.2190000000046,
+  "output": {
+    "observed_values": {
+      "final_screen": "A01a"
+    },
+    "observed_texts": [
+      "Đăng nhập",
+      "Đăng nhập để khám phá và theo dõi sự kiện.",
+      "Bạn đã hủy đăng nhập Google."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

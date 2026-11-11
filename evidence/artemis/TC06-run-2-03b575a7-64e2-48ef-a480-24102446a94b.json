@@ -1,0 +1,12 @@
+{
+  "case_id": "TC06",
+  "trace_id": "03b575a7-64e2-48ef-a480-24102446a94b",
+  "status": "completed",
+  "elapsed_seconds": 31.93699999999808,
+  "output": {
+    "unparsed": "The registration for \"Workshop Thiết kế trải nghiệm người dùng\" was successfully completed. The final screen confirms the registration status as \"Đăng ký được xác nhận\" (Registration confirmed)."
+  },
+  "error": null,
+  "run": "2",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "TC01",
+  "trace_id": "679f3f2e-3a20-4d04-8248-c851ec93ac0a",
+  "status": "completed",
+  "elapsed_seconds": 209.09399999999732,
+  "output": {
+    "unparsed": "I have successfully logged out of the previous account, signed in with the required Google account (<TEST_ACCOUNT>), and navigated to the \"Khám phá\" (Discover) tab. The heading \"Sắp tới tại TP.HCM\" is visible on the screen. The task is complete."
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,20 @@
+{
+  "case_id": "TC18",
+  "trace_id": "52b81df0-a9f5-4dce-b65c-cd5c11ac66ae",
+  "status": "completed",
+  "elapsed_seconds": 42.312999999994645,
+  "output": {
+    "observed_values": {
+      "final_screen": "L3-01"
+    },
+    "observed_texts": [
+      "Tiện ích Firebase",
+      "Lấy cấu hình mới",
+      "Đã nhận và kích hoạt cấu hình."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

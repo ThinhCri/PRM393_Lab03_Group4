@@ -1,0 +1,27 @@
+{
+  "case_id": "TC07",
+  "trace_id": "cdf8738e-0a3c-408a-886c-f8b90f41377e",
+  "status": "completed",
+  "elapsed_seconds": 213.26599999999598,
+  "output": {
+    "observed_values": {
+      "final_screen": "A07"
+    },
+    "observed_texts": [
+      "Lịch tham gia",
+      "Sắp tới",
+      "Đã kết thúc",
+      "Đã hủy",
+      "Đã hủy đăng ký",
+      "Workshop Thiết kế trải nghiệm người dùng (Mẫu)",
+      "14:00–16:30 · 08/11/2026",
+      "CLB Thiết kế FPTU",
+      "Phòng 204 · Campus TP.HCM",
+      "Xem chi tiết đăng ký"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

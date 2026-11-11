@@ -1,0 +1,103 @@
+# EventHub Lab 3 — ARTEMIS E2E Flash Regression Summary (2026-11-11)
+
+## 1. Exact Command & Runtime Configuration
+Batch timestamp (local): 2026-11-11 19:14:09 -> 20:20:06 (+07:00)
+Command:
+  powershell -ExecutionPolicy Bypass -File .\e2e_test\run_regression.ps1 -Selection "not TC13 and not TC15"
+
+Environment (secrets and dedicated test account redacted as [TEST_ACCOUNT]):
+  ARTEMIS_BASE_URL=http://127.0.0.1:8000 (upstream D:/Ky8/artemis @ 351ca8422f7b5b54e80a9c1ce03a222e02415b6b)
+  ARTEMIS_DEVICE=emulator-5554 (AVD Fitmate_Medium_API35, Android 15 / API 35, 4 vCPU, 3072 MB RAM)
+  App binary: build/app/outputs/flutter-apk/app-profile.apk (--profile + Cloudinary defines, DEX compiled with speed)
+  ARTEMIS profile: flash | step_summarizer.enabled=false | default.model=gemini-3.1-flash-lite | fallback=gemini-3.5-flash-lite | object_detector=gemini-robotics-er-2-preview
+  Prior setup notes: Switched runtime from Groq free-tier TPM (see setup-status.md / groq-compact.patch) to Gemini Developer API via D:/Ky8/artemis/config/artemis.jsonc without modifying ARTEMIS runner logic.
+
+## 2. Batch Totals (Pytest JUnit Source of Truth)
+  - Run 1 (flash-regression-20261111/run-1.xml): 12 passed, 4 failed (TC01, TC05, TC08, TC10), 7 skipped (TC19-TC25) in 1176.02s
+  - Run 2 (flash-regression-20261111/run-2.xml): 12 passed, 4 failed (TC05, TC06, TC08, TC12), 7 skipped (TC19-TC25) in 1496.51s
+  - Run 3 (flash-regression-20261111/run-3.xml): 14 passed, 2 failed (TC10, TC18), 7 skipped (TC19-TC25) in 1281.45s
+  - Active executed cases: 16 cases x 3 independent runs = 48 agent sessions (TC13 & TC15 deselected via -k).
+  - Overall active pass rate: 38 / 48 passed (79.17%), 0 crashes/ANRs, 0 HTTP 429 quota failures.
+  - All 16 active cases passed in >= 1/3 runs (9 cases at 100%, 4 cases at 66.67%, 3 cases at 33.33%).
+
+## 3. Per-Case Summary Table (verified from flash-regression-20261111/summary.csv)
+
+| Case | Runs | Pass | Fail | Skip | Run1/Run2/Run3 | Pass Rate | Avg Time (s) | Status / Flaky or Skip Reason |
+|---|---|---|---|---|---|---|---|---|
+| TC01 | 3 | 2 | 1 | 0 | FAIL/PASS/PASS | 66.67% | 157.15 | Run 1 unparsed English prose (agent signed in and opened Discover; failed strict JSON assertion) |
+| TC02 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 75.84 | Passed all 3 independent runs |
+| TC03 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 124.16 | Passed all 3 independent runs |
+| TC04 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 97.19 | Passed all 3 independent runs |
+| TC05 | 3 | 1 | 2 | 0 | FAIL/FAIL/PASS | 33.33% | 68.71 | Run 1 & Run 2 unparsed prose (agent triggered Khóa K validation error cleanly; failed JSON schema check) |
+| TC06 | 3 | 2 | 1 | 0 | PASS/FAIL/PASS | 66.67% | 35.49 | Run 2 unparsed prose (registration confirmed on UI; failed JSON schema check) |
+| TC07 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 177.4 | Passed all 3 independent runs |
+| TC08 | 3 | 1 | 2 | 0 | FAIL/FAIL/PASS | 33.33% | 61.77 | Run 1 & Run 2 unparsed prose (opened cancel dialog & kept registration cleanly; failed JSON schema check) |
+| TC09 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 49.16 | Passed all 3 independent runs |
+| TC10 | 3 | 1 | 2 | 0 | FAIL/PASS/FAIL | 33.33% | 109.06 | Run 1 & Run 3 unparsed prose (opened A09 notification list cleanly; failed JSON schema check) |
+| TC11 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 68.87 | Passed all 3 independent runs |
+| TC12 | 3 | 2 | 1 | 0 | PASS/FAIL/PASS | 66.67% | 22.52 | Run 2 unparsed prose (reached QR scanner cleanly; failed JSON schema check) |
+| TC14 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 110.59 | Passed all 3 independent runs |
+| TC16 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 60.72 | Passed all 3 independent runs |
+| TC17 | 3 | 3 | 0 | 0 | PASS/PASS/PASS | 100.0% | 56.75 | Passed all 3 independent runs |
+| TC18 | 3 | 2 | 1 | 0 | PASS/PASS/FAIL | 66.67% | 42.3 | Run 3 valid L3-01 JSON + fetch feedback, omitted string 'Giới hạn gợi ý' in observed_texts (Run 1 & 2 passed incl. logcat remote_config_fetch) |
+| TC19 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_FREE_EVENT_TITLE not set |
+| TC20 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_FULL_EVENT_TITLE not set |
+| TC21 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_EXPIRED_EVENT_TITLE not set |
+| TC22 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_CANCELLED_EVENT_TITLE not set |
+| TC23 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_NETWORK_TEST_READY not set (airplane/network drop test) |
+| TC24 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_WRONG_QR_READY not set (cross-role QR fixture) |
+| TC25 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_CAMERA_DENY_READY not set (requires permission revoke flow) |
+
+Deselected cases (`-k "not TC13 and not TC15"`):
+- TC13 (F4A checked-in A12): Requires physical camera scanning active Web-Club QR session (`ARTEMIS_CHECKED_IN_REG_READY`); covered separately by real-device (Samsung A57) manual/video proof.
+- TC15 (Remote Config 2-parameter live toggle): Avoided mutating shared Firebase Console config dynamically during automated runs; live Remote Config verified via Console before/after screenshots and TC18 fetch proof.
+
+## 4. Trace Inventory (48 Executed Traces in evidence/artemis/)
+- TC01 run 1: pytest=FAIL (209.24s) | artemis=completed (209.09s, unparsed) | trace=679f3f2e-3a20-4d04-8248-c851ec93ac0a | file=evidence/artemis/TC01-run-1-679f3f2e-3a20-4d04-8248-c851ec93ac0a.json
+- TC01 run 2: pytest=PASS (171.04s) | artemis=completed (170.83s, structured_json) | trace=ec965ec5-5a49-434b-9367-e6c2b1ffe6ca | file=evidence/artemis/TC01-run-2-ec965ec5-5a49-434b-9367-e6c2b1ffe6ca.json
+- TC01 run 3: pytest=PASS (91.16s) | artemis=completed (91.03s, structured_json) | trace=ebd7c0b7-e420-4ce4-b384-1116e6243375 | file=evidence/artemis/TC01-run-3-ebd7c0b7-e420-4ce4-b384-1116e6243375.json
+- TC02 run 1: pytest=PASS (42.97s) | artemis=completed (42.22s, structured_json) | trace=71b3322a-0f82-4c2d-a8b2-c9ccae9ce621 | file=evidence/artemis/TC02-run-1-71b3322a-0f82-4c2d-a8b2-c9ccae9ce621.json
+- TC02 run 2: pytest=PASS (44.33s) | artemis=completed (44.19s, structured_json) | trace=4636a999-d748-4d25-8739-98d1a6362bb2 | file=evidence/artemis/TC02-run-2-4636a999-d748-4d25-8739-98d1a6362bb2.json
+- TC02 run 3: pytest=PASS (140.23s) | artemis=completed (140.05s, structured_json) | trace=f01d5360-dfd5-4c02-9fa4-8eff229a4537 | file=evidence/artemis/TC02-run-3-f01d5360-dfd5-4c02-9fa4-8eff229a4537.json
+- TC03 run 1: pytest=PASS (66.81s) | artemis=completed (66.66s, structured_json) | trace=942a634d-7a7d-4c0a-90fe-f1b6f275c5ce | file=evidence/artemis/TC03-run-1-942a634d-7a7d-4c0a-90fe-f1b6f275c5ce.json
+- TC03 run 2: pytest=PASS (246.12s) | artemis=completed (245.97s, structured_json) | trace=cb0550e8-932a-48cd-9ffd-b40e9879f7a2 | file=evidence/artemis/TC03-run-2-cb0550e8-932a-48cd-9ffd-b40e9879f7a2.json
+- TC03 run 3: pytest=PASS (59.54s) | artemis=completed (59.41s, structured_json) | trace=c32a9c68-8da2-4cc7-a2ca-47f4f51f5f64 | file=evidence/artemis/TC03-run-3-c32a9c68-8da2-4cc7-a2ca-47f4f51f5f64.json
+- TC04 run 1: pytest=PASS (52.67s) | artemis=completed (52.53s, structured_json) | trace=7323f173-f672-4bb8-9f72-4aef74379e50 | file=evidence/artemis/TC04-run-1-7323f173-f672-4bb8-9f72-4aef74379e50.json
+- TC04 run 2: pytest=PASS (202.73s) | artemis=completed (202.61s, structured_json) | trace=dae90be2-6630-4496-be30-9f36d92b0403 | file=evidence/artemis/TC04-run-2-dae90be2-6630-4496-be30-9f36d92b0403.json
+- TC04 run 3: pytest=PASS (36.18s) | artemis=completed (36.08s, structured_json) | trace=889f7531-992c-41a9-ae5e-b5a2244ef3ea | file=evidence/artemis/TC04-run-3-889f7531-992c-41a9-ae5e-b5a2244ef3ea.json
+- TC05 run 1: pytest=FAIL (65.89s) | artemis=completed (65.75s, unparsed) | trace=701ce15c-6ad2-4bd8-b730-bedbdb9d9303 | file=evidence/artemis/TC05-run-1-701ce15c-6ad2-4bd8-b730-bedbdb9d9303.json
+- TC05 run 2: pytest=FAIL (27.96s) | artemis=completed (27.89s, unparsed) | trace=f1078ee0-c6ad-443f-be05-e079ed6c4e5a | file=evidence/artemis/TC05-run-2-f1078ee0-c6ad-443f-be05-e079ed6c4e5a.json
+- TC05 run 3: pytest=PASS (112.28s) | artemis=completed (111.61s, structured_json) | trace=be158b70-50b4-439c-80b2-4d4de84c4631 | file=evidence/artemis/TC05-run-3-be158b70-50b4-439c-80b2-4d4de84c4631.json
+- TC06 run 1: pytest=PASS (25.95s) | artemis=completed (25.89s, structured_json) | trace=402bb605-e37a-416a-a185-70809b25e151 | file=evidence/artemis/TC06-run-1-402bb605-e37a-416a-a185-70809b25e151.json
+- TC06 run 2: pytest=FAIL (32.03s) | artemis=completed (31.94s, unparsed) | trace=03b575a7-64e2-48ef-a480-24102446a94b | file=evidence/artemis/TC06-run-2-03b575a7-64e2-48ef-a480-24102446a94b.json
+- TC06 run 3: pytest=PASS (48.50s) | artemis=completed (48.38s, structured_json) | trace=8a9abde5-2bf1-4f4b-9318-bb695d87562a | file=evidence/artemis/TC06-run-3-8a9abde5-2bf1-4f4b-9318-bb695d87562a.json
+- TC07 run 1: pytest=PASS (213.45s) | artemis=completed (213.27s, structured_json) | trace=cdf8738e-0a3c-408a-886c-f8b90f41377e | file=evidence/artemis/TC07-run-1-cdf8738e-0a3c-408a-886c-f8b90f41377e.json
+- TC07 run 2: pytest=PASS (95.37s) | artemis=completed (95.19s, structured_json) | trace=039776fb-38ae-4c69-b8cd-4ad5c9daa20c | file=evidence/artemis/TC07-run-2-039776fb-38ae-4c69-b8cd-4ad5c9daa20c.json
+- TC07 run 3: pytest=PASS (223.38s) | artemis=completed (223.09s, structured_json) | trace=f1bbfe3e-da65-4aa7-8043-78a3c82e113c | file=evidence/artemis/TC07-run-3-f1bbfe3e-da65-4aa7-8043-78a3c82e113c.json
+- TC08 run 1: pytest=FAIL (106.86s) | artemis=completed (106.61s, unparsed) | trace=75adf2a8-8272-49f1-b0b1-c5404dffb64b | file=evidence/artemis/TC08-run-1-75adf2a8-8272-49f1-b0b1-c5404dffb64b.json
+- TC08 run 2: pytest=FAIL (37.16s) | artemis=completed (37.03s, unparsed) | trace=0a88e90b-b83b-4e2e-af22-3634fa50c71e | file=evidence/artemis/TC08-run-2-0a88e90b-b83b-4e2e-af22-3634fa50c71e.json
+- TC08 run 3: pytest=PASS (41.30s) | artemis=completed (41.19s, structured_json) | trace=10a0c647-f73b-4812-88b6-35d6ca4db1b6 | file=evidence/artemis/TC08-run-3-10a0c647-f73b-4812-88b6-35d6ca4db1b6.json
+- TC09 run 1: pytest=PASS (69.12s) | artemis=completed (69.01s, structured_json) | trace=48ca8ecf-a413-41f7-bd04-efa103441fa3 | file=evidence/artemis/TC09-run-1-48ca8ecf-a413-41f7-bd04-efa103441fa3.json
+- TC09 run 2: pytest=PASS (40.22s) | artemis=completed (40.09s, structured_json) | trace=43c6bc02-b221-4709-a0fb-10541110bdd9 | file=evidence/artemis/TC09-run-2-43c6bc02-b221-4709-a0fb-10541110bdd9.json
+- TC09 run 3: pytest=PASS (38.15s) | artemis=completed (38.02s, structured_json) | trace=540cf705-2554-4b28-9eea-090b3bac6657 | file=evidence/artemis/TC09-run-3-540cf705-2554-4b28-9eea-090b3bac6657.json
+- TC10 run 1: pytest=FAIL (48.53s) | artemis=completed (48.47s, unparsed) | trace=8ef39749-8917-400d-9a12-3f98340334c0 | file=evidence/artemis/TC10-run-1-8ef39749-8917-400d-9a12-3f98340334c0.json
+- TC10 run 2: pytest=PASS (248.49s) | artemis=completed (248.36s, structured_json) | trace=8b0de2b3-26ea-458f-9765-aefcbff4b070 | file=evidence/artemis/TC10-run-2-8b0de2b3-26ea-458f-9765-aefcbff4b070.json
+- TC10 run 3: pytest=FAIL (30.16s) | artemis=completed (30.03s, unparsed) | trace=1dec8df8-4f24-4bd7-9eee-e353c3ee432f | file=evidence/artemis/TC10-run-3-1dec8df8-4f24-4bd7-9eee-e353c3ee432f.json
+- TC11 run 1: pytest=PASS (38.23s) | artemis=completed (38.16s, structured_json) | trace=95c3e5ca-f766-4495-9c3e-fe679a2f379a | file=evidence/artemis/TC11-run-1-95c3e5ca-f766-4495-9c3e-fe679a2f379a.json
+- TC11 run 2: pytest=PASS (28.07s) | artemis=completed (28.00s, structured_json) | trace=3dbbf41e-2dfe-4eb4-9c7e-481cf09167ee | file=evidence/artemis/TC11-run-2-3dbbf41e-2dfe-4eb4-9c7e-481cf09167ee.json
+- TC11 run 3: pytest=PASS (140.33s) | artemis=completed (140.23s, structured_json) | trace=5f771bae-af98-48aa-85fc-d423cf462e8c | file=evidence/artemis/TC11-run-3-5f771bae-af98-48aa-85fc-d423cf462e8c.json
+- TC12 run 1: pytest=PASS (19.94s) | artemis=completed (19.89s, structured_json) | trace=f75a3d27-5a9d-45d1-aa46-202ce6dc68e0 | file=evidence/artemis/TC12-run-1-f75a3d27-5a9d-45d1-aa46-202ce6dc68e0.json
+- TC12 run 2: pytest=FAIL (24.87s) | artemis=completed (24.81s, unparsed) | trace=1982e2a6-bd01-4ab5-ada0-035039f2e6aa | file=evidence/artemis/TC12-run-2-1982e2a6-bd01-4ab5-ada0-035039f2e6aa.json
+- TC12 run 3: pytest=PASS (22.76s) | artemis=completed (22.70s, structured_json) | trace=b51003e0-9a4d-4609-9adf-8c752e6f2cc1 | file=evidence/artemis/TC12-run-3-b51003e0-9a4d-4609-9adf-8c752e6f2cc1.json
+- TC14 run 1: pytest=PASS (91.42s) | artemis=completed (91.25s, structured_json) | trace=b679e8db-d1aa-4202-b9c4-68971a8c4f64 | file=evidence/artemis/TC14-run-1-b679e8db-d1aa-4202-b9c4-68971a8c4f64.json
+- TC14 run 2: pytest=PASS (170.14s) | artemis=completed (170.02s, structured_json) | trace=28a0bd63-1d56-4be5-827b-f7315a58f04d | file=evidence/artemis/TC14-run-2-28a0bd63-1d56-4be5-827b-f7315a58f04d.json
+- TC14 run 3: pytest=PASS (70.21s) | artemis=completed (69.97s, structured_json) | trace=abe86cbd-d330-4b26-832c-bd787f8ad1a5 | file=evidence/artemis/TC14-run-3-abe86cbd-d330-4b26-832c-bd787f8ad1a5.json
+- TC16 run 1: pytest=PASS (29.14s) | artemis=completed (29.03s, structured_json) | trace=fb775a6b-ba96-448a-8ccb-d2c26438236f | file=evidence/artemis/TC16-run-1-fb775a6b-ba96-448a-8ccb-d2c26438236f.json
+- TC16 run 2: pytest=PASS (28.97s) | artemis=completed (28.89s, structured_json) | trace=5820e1cf-8bbc-4b74-bf8f-72d9f266be97 | file=evidence/artemis/TC16-run-2-5820e1cf-8bbc-4b74-bf8f-72d9f266be97.json
+- TC16 run 3: pytest=PASS (124.06s) | artemis=completed (123.94s, structured_json) | trace=0eecb255-8da0-4b2a-b03d-7adb7250bd69 | file=evidence/artemis/TC16-run-3-0eecb255-8da0-4b2a-b03d-7adb7250bd69.json
+- TC17 run 1: pytest=PASS (47.40s) | artemis=completed (47.30s, structured_json) | trace=0b47d172-1ca0-4d11-9b23-01a1cf5ede98 | file=evidence/artemis/TC17-run-1-0b47d172-1ca0-4d11-9b23-01a1cf5ede98.json
+- TC17 run 2: pytest=PASS (63.36s) | artemis=completed (62.56s, structured_json) | trace=b2aa42e6-a979-4ea5-aa03-60f963bd4dc4 | file=evidence/artemis/TC17-run-2-b2aa42e6-a979-4ea5-aa03-60f963bd4dc4.json
+- TC17 run 3: pytest=PASS (59.48s) | artemis=completed (59.36s, structured_json) | trace=b3a36012-b075-444b-b29b-38d6870f91ea | file=evidence/artemis/TC17-run-3-b3a36012-b075-444b-b29b-38d6870f91ea.json
+- TC18 run 1: pytest=PASS (48.06s) | artemis=completed (46.44s, structured_json) | trace=d1ed753d-4ac6-4323-bc65-bfba4b11b345 | file=evidence/artemis/TC18-run-1-d1ed753d-4ac6-4323-bc65-bfba4b11b345.json
+- TC18 run 2: pytest=PASS (35.38s) | artemis=completed (34.48s, structured_json) | trace=8b367065-2957-489e-ac98-91aa00facc5e | file=evidence/artemis/TC18-run-2-8b367065-2957-489e-ac98-91aa00facc5e.json
+- TC18 run 3: pytest=FAIL (43.47s) | artemis=completed (42.31s, structured_json) | trace=52b81df0-a9f5-4dce-b65c-cd5c11ac66ae | file=evidence/artemis/TC18-run-3-52b81df0-a9f5-4dce-b65c-cd5c11ac66ae.json

@@ -1,0 +1,27 @@
+{
+  "case_id": "TC18",
+  "trace_id": "d1ed753d-4ac6-4323-bc65-bfba4b11b345",
+  "status": "completed",
+  "elapsed_seconds": 46.437999999994645,
+  "output": {
+    "observed_values": {
+      "final_screen": "L3-01"
+    },
+    "observed_texts": [
+      "Tiện ích Firebase",
+      "Giới hạn gợi ý: 10",
+      "Hiện gợi ý: Bật",
+      "Các giá trị đang dùng sẽ tác động màn Khám phá sau khi lấy cấu hình mới.",
+      "Lấy cấu hình mới",
+      "Bật thông báo trên thiết bị",
+      "Trung tâm thông báo",
+      "Xuất và tải PDF",
+      "Ghi lỗi non-fatal thử nghiệm",
+      "Đã nhận và kích hoạt cấu hình."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

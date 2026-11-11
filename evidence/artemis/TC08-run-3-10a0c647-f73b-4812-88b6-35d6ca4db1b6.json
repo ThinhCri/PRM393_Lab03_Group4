@@ -1,0 +1,21 @@
+{
+  "case_id": "TC08",
+  "trace_id": "10a0c647-f73b-4812-88b6-35d6ca4db1b6",
+  "status": "completed",
+  "elapsed_seconds": 41.187000000005355,
+  "output": {
+    "observed_values": {
+      "final_screen": "A08"
+    },
+    "observed_texts": [
+      "Chi tiết đăng ký",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "Đã đăng ký",
+      "Phiên điểm danh đang mở. Quét mã QR do CLB hiển thị tại sự kiện."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

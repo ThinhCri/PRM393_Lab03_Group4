@@ -1,0 +1,19 @@
+{
+  "case_id": "TC05",
+  "trace_id": "be158b70-50b4-439c-80b2-4d4de84c4631",
+  "status": "completed",
+  "elapsed_seconds": 111.60899999999674,
+  "output": {
+    "observed_values": {
+      "final_screen": "A05"
+    },
+    "observed_texts": [
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "Vui lòng nhập khóa K."
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "TC10",
+  "trace_id": "1dec8df8-4f24-4bd7-9eee-e353c3ee432f",
+  "status": "completed",
+  "elapsed_seconds": 30.0309999999954,
+  "output": {
+    "unparsed": "I have successfully navigated to the 'Thông báo' (Notifications) tab. The visible notifications are:\n- 'Kiểm thử FCM —app đóng' (Đã đọc)\n- 'Kiểm thử FCM — chạy nền.' (Đã đọc)\n- 'Kiểm thử FCM — chạy nền.' (Đã đọc)\n- 'Kiểm thử FCM — chạy nền.' (Đã đọc)\n- 'Kiểm thử FCM — chạy nền.' (Đã đọc)\n- 'Kiểm thử FCM — đang mở' (Đã đọc)\n- 'Kiểm thử FCM — đang mở' (Chưa đọc)\n\nThe task is completed."
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

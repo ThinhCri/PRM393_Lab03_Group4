@@ -1,0 +1,23 @@
+{
+  "case_id": "TC04",
+  "trace_id": "889f7531-992c-41a9-ae5e-b5a2244ef3ea",
+  "status": "completed",
+  "elapsed_seconds": 36.07800000000134,
+  "output": {
+    "observed_values": {
+      "final_screen": "A04"
+    },
+    "observed_texts": [
+      "Chi tiết sự kiện",
+      "Workshop Thiết kế trải nghiệm người dùng",
+      "Giới thiệu",
+      "Bạn sẽ làm gì?",
+      "Dành cho ai?",
+      "Đăng ký sự kiện"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "TC05",
+  "trace_id": "701ce15c-6ad2-4bd8-b730-bedbdb9d9303",
+  "status": "completed",
+  "elapsed_seconds": 65.75,
+  "output": {
+    "unparsed": "The registration process for the event \"Workshop Thiết kế trải nghiệm người dùng\" was initiated. After attempting to submit the registration form with the \"Sinh viên FPTU\" option selected, the application correctly identified a missing required field (\"Khóa K\") and displayed the error message \"Vui lòng nhập khóa K.\". The task is completed as requested.\n\nObserved texts:\n- \"Workshop Thiết kế trải nghiệm người dùng\"\n- \"Vui lòng nhập khóa K.\""
+  },
+  "error": null,
+  "run": "1",
+  "acceptance_status": "pending_pytest_assertions"
+}

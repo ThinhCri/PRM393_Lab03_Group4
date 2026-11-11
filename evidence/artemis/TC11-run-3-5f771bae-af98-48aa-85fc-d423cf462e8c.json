@@ -1,0 +1,25 @@
+{
+  "case_id": "TC11",
+  "trace_id": "5f771bae-af98-48aa-85fc-d423cf462e8c",
+  "status": "completed",
+  "elapsed_seconds": 140.23399999999674,
+  "output": {
+    "observed_values": {
+      "final_screen": "A10-edit"
+    },
+    "observed_texts": [
+      "Chỉnh sửa thông tin",
+      "Họ tên *",
+      "Huy",
+      "Email tài khoản app",
+      "<TEST_ACCOUNT>",
+      "Email đăng nhập do Google quản lý. App không thay email Google của bạn.",
+      "Thay đổi hồ sơ không tự cập nhật thông tin trên các đăng ký cũ.",
+      "Lưu thay đổi"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}

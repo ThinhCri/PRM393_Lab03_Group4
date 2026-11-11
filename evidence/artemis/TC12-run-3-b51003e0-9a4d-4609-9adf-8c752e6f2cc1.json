@@ -1,0 +1,22 @@
+{
+  "case_id": "TC12",
+  "trace_id": "b51003e0-9a4d-4609-9adf-8c752e6f2cc1",
+  "status": "completed",
+  "elapsed_seconds": 22.702999999994063,
+  "output": {
+    "observed_values": {
+      "final_screen": "A11"
+    },
+    "observed_texts": [
+      "Quét QR",
+      "Quét mã QR do CLB hiển thị trên web tại sự kiện. App không mở hoặc điều khiển web CLB.",
+      "Quét lại",
+      "Mở Cài đặt camera",
+      "Quay về chi tiết đăng ký"
+    ],
+    "precondition_failed": null
+  },
+  "error": null,
+  "run": "3",
+  "acceptance_status": "pending_pytest_assertions"
+}
