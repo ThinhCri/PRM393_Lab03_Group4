@@ -62,30 +62,30 @@ def run_case():
         # Pinned host omits Flash final reports from TaskResult. Read the
         # report actually recorded in that exact session, never invent output.
         if output is None:
-            steps = []
-            for attempt in range(6):
+            for attempt in range(10):
+                steps = []
                 request = urllib.request.Request(f"{base.rstrip('/')}/api/sessions/{result.trace_id}/steps")
                 if os.getenv('ARTEMIS_TOKEN'):
                     request.add_header('Authorization', 'Bearer ' + os.environ['ARTEMIS_TOKEN'])
                 try:
                     with urllib.request.urlopen(request, timeout=15) as response:
                         steps = json.load(response)
-                    if isinstance(steps, list) and steps:
-                        break
                 except Exception:
                     steps = []  # Missing evidence must fail assertions, never imply success.
-                if attempt < 5:
-                    time.sleep(0.5)
-            for step in reversed(steps if isinstance(steps, list) else []):
-                action = step.get("action_taken") or {}
-                if isinstance(action, str):
-                    try:
-                        action = json.loads(action)
-                    except json.JSONDecodeError:
-                        continue
-                if action.get("action") == "report_task_status":
-                    output = (action.get("args") or {}).get("explanation")
+                for step in reversed(steps if isinstance(steps, list) else []):
+                    action = step.get("action_taken") or {}
+                    if isinstance(action, str):
+                        try:
+                            action = json.loads(action)
+                        except json.JSONDecodeError:
+                            continue
+                    if action.get("action") == "report_task_status":
+                        output = (action.get("args") or {}).get("explanation")
+                        break
+                if output is not None:
                     break
+                if attempt < 9:
+                    time.sleep(0.5)
         if isinstance(output, str):
             cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", output.strip())
             try:
