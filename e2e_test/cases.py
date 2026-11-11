@@ -1,7 +1,7 @@
 CASES = [
  ("TC01", "If already signed in, use Account > Logout. Then sign in with Google account {account}, navigate to Discover and verify its heading Sắp tới. Stop only on Discover.", "A02", "Sắp tới", False),
  ("TC02", "At login tap Google then cancel Android account picker. Stop at login and read cancellation feedback.", "A01a", "Đăng nhập", False),
- ("TC03", "Sign in with {account}. Search for a deliberately unmatched term zzz_no_event_8362. Submit search.", "A03", "Chưa tìm thấy", False),
+ ("TC03", "Sign in with {account}. Focus the search field and enter zzz_no_event_8362; if the text stays on the keyboard clipboard chip instead of inside the field, tap the clipboard chip so zzz_no_event_8362 appears inside the search field, then submit search.", "A03", "Chưa tìm thấy", False),
  ("TC04", "Sign in with {account}. Search {event}, select its card and read event details.", "A04", "Giới thiệu", True),
  ("TC05", "Sign in with {account}. Open {event}, choose Register. If an active registration exists and the app permits cancellation, cancel it first; otherwise report setup missing. Choose student, clear cohort and submit. Stop at field error.", "A05", "Vui lòng nhập khóa K", True),
  ("TC06", "Sign in with {account}. For {event}, ensure no active registration (cancel only if app allows). Register as guest using the test name/email. Do not enter cohort. Stop at confirmed result; report setup missing if event is full/expired.", "A06", "Đăng ký được xác nhận", True),
@@ -10,7 +10,7 @@ CASES = [
  ("TC09", "Sign in with {account}. Ensure an active cancellable registration for {event}; cancel and confirm. Open Schedule > Cancelled and observe that entry.", "A07", "Đã hủy", True),
  ("TC10", "Sign in with {account}. Open Notifications. If a notification exists, open it and verify the current destination, then return to Notifications.", "A09", "Thông báo", False),
  ("TC11", "Sign in with {account}. Open Account > Edit information. Do not change Google email. Stop on edit screen and inspect the email label.", "A10-edit", "Email tài khoản app", False),
- ("TC12", "Sign in with {account}. Ensure active registration for {event}. Open its detail > Scan QR. Handle native camera permission dialog by Allow if shown. Do not scan unknown QR. Stop on scan screen.", "A11", "Quét QR", True),
+ ("TC12", "Sign in with {account}. Ensure active registration for {event}. Open its detail > Scan QR (if Scan QR is disabled because the check-in session is closed, set precondition_failed to 'Check-in session is closed' and stop without reporting A11). Handle native camera permission dialog by Allow if shown. Do not scan unknown QR. Stop on scan screen.", "A11", "Quét mã QR do CLB", True),
  ("TC13", "Sign in with {account}. Open the known already checked-in test registration for {event} and View confirmation. If no such fixture exists, report setup missing. Verify time displayed; do not create a fake check-in.", "A12", "điểm danh", True),
  ("TC14", "Sign in with {account}. Open Account > Export participation schedule, inspect current preview and Create PDF and upload. Wait for an actual completed URL; report setup missing if Cloudinary upload is not configured. Stop at export result.", "L3-02", "Đã tạo và tải PDF", False),
  ("TC15", "Sign in with {account}. Open Account > Firebase tools > Fetch new config. Read the visible recommendation limit and flag; do not modify the console.", "L3-01", "Giới hạn gợi ý", False),

@@ -30,9 +30,19 @@ def run_case():
             "Each case is independent: return to login through Account > Logout if necessary. "
             "Use only the explicitly named Google test account already added to Android; never use personal accounts, "
             "type passwords, change security settings, edit Firebase console, or invent observations. "
-            + goal + " Complete every requested action before reporting completion. Return ONLY JSON with observed_values.final_screen (screen code), "
-            "observed_texts (exact text actually visible), and precondition_failed (null or reason). "
-            "Expected final screen code: " + expected_screen + ". Put this JSON in report_task_status explanation. If setup is missing, report precondition_failed; do not fake success."
+            + goal + " Complete every requested action before reporting completion. "
+            "Return ONLY a JSON object with this exact structure: "
+            '{"observed_values":{"final_screen":"<observed screen code>"},'
+            '"observed_texts":["<verbatim visible UI text>"],"precondition_failed":null}. '
+            "final_screen MUST be nested inside observed_values, never at the root. "
+            "Copy Vietnamese text exactly from the latest screen; do not translate, paraphrase, "
+            "invent explanatory text, or infer text from the task goal. If text cannot be read, "
+            "report that limitation rather than making it up. "
+            "Screen-code mapping for this case: " + expected_screen +
+            ". Report that code only if the corresponding final screen is actually observed. "
+            "Put the JSON in report_task_status explanation. If setup is missing, "
+            "set precondition_failed to the reason; do not fake success."
+
         )
         started = time.monotonic()
         def save(payload):
@@ -52,14 +62,20 @@ def run_case():
         # Pinned host omits Flash final reports from TaskResult. Read the
         # report actually recorded in that exact session, never invent output.
         if output is None:
-            request = urllib.request.Request(f"{base.rstrip('/')}/api/sessions/{result.trace_id}/steps")
-            if os.getenv('ARTEMIS_TOKEN'):
-                request.add_header('Authorization', 'Bearer ' + os.environ['ARTEMIS_TOKEN'])
-            try:
-                with urllib.request.urlopen(request, timeout=15) as response:
-                    steps = json.load(response)
-            except Exception:
-                steps = []  # Missing evidence must fail assertions, never imply success.
+            steps = []
+            for attempt in range(6):
+                request = urllib.request.Request(f"{base.rstrip('/')}/api/sessions/{result.trace_id}/steps")
+                if os.getenv('ARTEMIS_TOKEN'):
+                    request.add_header('Authorization', 'Bearer ' + os.environ['ARTEMIS_TOKEN'])
+                try:
+                    with urllib.request.urlopen(request, timeout=15) as response:
+                        steps = json.load(response)
+                    if isinstance(steps, list) and steps:
+                        break
+                except Exception:
+                    steps = []  # Missing evidence must fail assertions, never imply success.
+                if attempt < 5:
+                    time.sleep(0.5)
             for step in reversed(steps if isinstance(steps, list) else []):
                 action = step.get("action_taken") or {}
                 if isinstance(action, str):
@@ -71,11 +87,22 @@ def run_case():
                     output = (action.get("args") or {}).get("explanation")
                     break
         if isinstance(output, str):
-            output = re.sub(r"^```(?:json)?\s*|\s*```$", "", output.strip())
+            cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", output.strip())
             try:
-                output = json.loads(output)
+                output = json.loads(cleaned)
             except json.JSONDecodeError:
-                output = {"unparsed": output}
+                parsed = None
+                decoder = json.JSONDecoder()
+                for idx, ch in enumerate(cleaned):
+                    if ch == "{":
+                        try:
+                            candidate, _ = decoder.raw_decode(cleaned, idx)
+                        except json.JSONDecodeError:
+                            continue
+                        if isinstance(candidate, dict) and "observed_values" in candidate:
+                            parsed = candidate
+                            break
+                output = parsed if parsed is not None else {"unparsed": cleaned}
         payload = {"case_id": case_id, "trace_id": result.trace_id, "status": result.status,
                    "elapsed_seconds": duration, "output": output, "error": result.error,
                    "run": os.getenv("ARTEMIS_RUN", "1")}

@@ -50,3 +50,7 @@ Trước nộp: kiểm tra/ẩn dữ liệu riêng tư trong XML và trace, sao 
 Local runtime `ARTEMIS_MIN_MODEL_INTERVAL_SECONDS=90` giãn nhịp mỗi model call; `ARTEMIS_MODEL_MAX_TOKENS=1024` giới hạn output. Pytest `ARTEMIS_CASE_TIMEOUT_SECONDS` mặc định 1800 giây để không timeout chỉ vì nhịp chậm. Chạy tuần tự; không chạy nhiều model task song song. Đây là cấu hình tương thích, không bỏ assertion hoặc thay thế yêu cầu 3 lượt/ca. Phiên Pro vẫn phải 15–30 phút thật.
 
 Transport pacing: `ARTEMIS_GROQ_HTTP_INTERVAL_SECONDS=90` applies to all OpenAI-compatible model HTTP requests from the runtime, including auxiliary observations and SDK retries. With this set, use `ARTEMIS_MIN_MODEL_INTERVAL_SECONDS=0` to avoid double delays. Test timeout can be set via `ARTEMIS_CASE_TIMEOUT_SECONDS` (seconds). This local runtime patch is disclosed; do not claim it is unmodified upstream.
+
+## TC03 structured-output retry — 07/11/2026
+
+Trace 501cad31-7650-4659-bbef-140b6bd22edd completed without recent 429 responses, but pytest failed: final_screen was at the JSON root rather than observed_values.final_screen. Reported Vietnamese empty-state text also did not match current UI source (Chưa tìm thấy sự kiện). Clarified exact JSON structure and verbatim observations in the prompt; assertions were not relaxed and the old attempt remains failed. A fresh native run is required.
