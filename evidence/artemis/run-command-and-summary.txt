@@ -1,15 +1,18 @@
-# EventHub Lab 3 — ARTEMIS E2E Flash Regression Summary (2026-11-11)
+# EventHub Lab 3 — ARTEMIS E2E Test Summary (2026-11-11)
 
 ## 1. Exact Command & Runtime Configuration
 Batch timestamp (local): 2026-11-11 19:14:09 -> 20:20:06 (+07:00)
-Command:
+Flash Regression Command:
   powershell -ExecutionPolicy Bypass -File .\e2e_test\run_regression.ps1 -Selection "not TC13 and not TC15"
+Pro Exploratory Command:
+  $env:ARTEMIS_ALLOW_PRO = "1"; uv run --project e2e_test python e2e_test/explore.py
 
-Environment (secrets and dedicated test account redacted as [TEST_ACCOUNT]):
+Environment (secrets and dedicated test account redacted as <TEST_ACCOUNT>):
   ARTEMIS_BASE_URL=http://127.0.0.1:8000 (upstream D:/Ky8/artemis @ 351ca8422f7b5b54e80a9c1ce03a222e02415b6b)
   ARTEMIS_DEVICE=emulator-5554 (AVD Fitmate_Medium_API35, Android 15 / API 35, 4 vCPU, 3072 MB RAM)
   App binary: build/app/outputs/flutter-apk/app-profile.apk (--profile + Cloudinary defines, DEX compiled with speed)
-  ARTEMIS profile: flash | step_summarizer.enabled=false | default.model=gemini-3.1-flash-lite | fallback=gemini-3.5-flash-lite | object_detector=gemini-robotics-er-2-preview
+  ARTEMIS Flash profile: flash | step_summarizer.enabled=false | default.model=gemini-3.1-flash-lite | fallback=gemini-3.5-flash-lite | object_detector=gemini-robotics-er-2-preview
+  ARTEMIS Pro profile: pro (used exclusively for exploratory session c8a40964-c1e0-4b14-9867-c1a2eacd4651)
   Prior setup notes: Switched runtime from Groq free-tier TPM (see setup-status.md / groq-compact.patch) to Gemini Developer API via D:/Ky8/artemis/config/artemis.jsonc without modifying ARTEMIS runner logic.
 
 ## 2. Batch Totals (Pytest JUnit Source of Truth)
@@ -46,13 +49,13 @@ Environment (secrets and dedicated test account redacted as [TEST_ACCOUNT]):
 | TC22 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_CANCELLED_EVENT_TITLE not set |
 | TC23 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_NETWORK_TEST_READY not set (airplane/network drop test) |
 | TC24 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_WRONG_QR_READY not set (cross-role QR fixture) |
-| TC25 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_CAMERA_DENY_READY not set (requires permission revoke flow) |
+| TC25 | 3 | 0 | 0 | 3 | SKIP/SKIP/SKIP | 0.0% | N/A (skipped) | Skipped: dedicated fixture env ARTEMIS_CAMERA_PERMISSION_READY not set (requires permission revoke flow) |
 
 Deselected cases (`-k "not TC13 and not TC15"`):
 - TC13 (F4A checked-in A12): Requires physical camera scanning active Web-Club QR session (`ARTEMIS_CHECKED_IN_REG_READY`); covered separately by real-device (Samsung A57) manual/video proof.
 - TC15 (Remote Config 2-parameter live toggle): Avoided mutating shared Firebase Console config dynamically during automated runs; live Remote Config verified via Console before/after screenshots and TC18 fetch proof.
 
-## 4. Trace Inventory (48 Executed Traces in evidence/artemis/)
+## 4. Trace Inventory (48 Executed Flash Traces in evidence/artemis/)
 - TC01 run 1: pytest=FAIL (209.24s) | artemis=completed (209.09s, unparsed) | trace=679f3f2e-3a20-4d04-8248-c851ec93ac0a | file=evidence/artemis/TC01-run-1-679f3f2e-3a20-4d04-8248-c851ec93ac0a.json
 - TC01 run 2: pytest=PASS (171.04s) | artemis=completed (170.83s, structured_json) | trace=ec965ec5-5a49-434b-9367-e6c2b1ffe6ca | file=evidence/artemis/TC01-run-2-ec965ec5-5a49-434b-9367-e6c2b1ffe6ca.json
 - TC01 run 3: pytest=PASS (91.16s) | artemis=completed (91.03s, structured_json) | trace=ebd7c0b7-e420-4ce4-b384-1116e6243375 | file=evidence/artemis/TC01-run-3-ebd7c0b7-e420-4ce4-b384-1116e6243375.json
@@ -101,3 +104,10 @@ Deselected cases (`-k "not TC13 and not TC15"`):
 - TC18 run 1: pytest=PASS (48.06s) | artemis=completed (46.44s, structured_json) | trace=d1ed753d-4ac6-4323-bc65-bfba4b11b345 | file=evidence/artemis/TC18-run-1-d1ed753d-4ac6-4323-bc65-bfba4b11b345.json
 - TC18 run 2: pytest=PASS (35.38s) | artemis=completed (34.48s, structured_json) | trace=8b367065-2957-489e-ac98-91aa00facc5e | file=evidence/artemis/TC18-run-2-8b367065-2957-489e-ac98-91aa00facc5e.json
 - TC18 run 3: pytest=FAIL (43.47s) | artemis=completed (42.31s, structured_json) | trace=52b81df0-a9f5-4dce-b65c-cd5c11ac66ae | file=evidence/artemis/TC18-run-3-52b81df0-a9f5-4dce-b65c-cd5c11ac66ae.json
+
+## 5. Pro Exploratory Session (2026-11-11)
+- Trace ID: c8a40964-c1e0-4b14-9867-c1a2eacd4651
+- Status: completed | Checker: PASS | meets_15_to_30_minutes: true
+- Elapsed: 1056.453s (17m 36s) | Steps: 78 | Model calls: 229 | App crashes/bugs: 0
+- Coverage: All 12 functional phases (F1 search/filters/detail/registration/state isolation, F2 schedule/cancel guard, F4A QR closed-session check, Account/Profile edit, Notifications, Export PDF + Cloudinary + copy link, Firebase Tools Remote Config fetch) + ~4m Discovery dwell & accessibility checks (Steps 75-77).
+- Artifacts: evidence/artemis/exploratory-c8a40964-c1e0-4b14-9867-c1a2eacd4651.json and evidence/artemis/exploratory-pro-session.md

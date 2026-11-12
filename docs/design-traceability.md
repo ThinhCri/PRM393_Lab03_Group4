@@ -1,6 +1,33 @@
 # Đối chiếu thiết kế Lab 2 → triển khai Lab 3
 
-Ngày lập: 30/10/2026. Cập nhật 04/11/2026: đã có auth, code nghiệp vụ Firestore trực tiếp và test local; cloud/Figma còn các việc chưa hoàn tất. Lab 2 đã được chủ dự án xác nhận chốt. Bảng màn bên dưới là ánh xạ thiết kế, không phải bằng chứng E2E; trạng thái hiện hành ở [lab3-readiness.md](lab3-readiness.md).
+Cập nhật 12/11/2026 (lập 30/10/2026). Tài liệu ánh xạ toàn bộ màn hình, luồng và component từ bản thiết kế Lab 2 sang code Flutter Android Lab 3, kèm nhật ký đầy đủ các sai lệch thiết kế (`D01`–`D15`) và lý do. Trạng thái tổng thể xem thêm tại [lab3-readiness.md](lab3-readiness.md).
+
+## Liên kết Figma chính thức
+
+- **Figma chính thức Lab 2/Lab 3:** [PRM393 Design File](https://www.figma.com/design/WC21Na9ZDS8jjM2LzPKeXa/PRM393?node-id=0-1&t=vvZ6weDVMtbbxze1-1)
+- Các trang thành phần trong cùng file: [Final UI (`153:2`)](https://www.figma.com/design/WC21Na9ZDS8jjM2LzPKeXa/PRM393?node-id=153-2), [Components (`23:2`)](https://www.figma.com/design/WC21Na9ZDS8jjM2LzPKeXa/PRM393?node-id=23-2), [Prototype (`199:1681`)](https://www.figma.com/design/WC21Na9ZDS8jjM2LzPKeXa/PRM393?node-id=199-1681).
+- **Ghi chú đồng bộ Figma:** Theo quyết định giữ nguyên baseline đã chốt của Lab 2, các sai lệch `D01`–`D15` được ghi nhận minh bạch bằng đối chiếu trước/sau tại `evidence/design-changes/` và [figma-app-audit.md](figma-app-audit.md) chứ chưa chỉnh sửa trực tiếp trên file Figma gốc.
+
+## Tóm tắt theo dõi sai lệch thiết kế (D01–D15)
+
+*(Ghi chú: mã `D09` không phát sinh trong quá trình đánh số; tổng cộng có 14 mục sai lệch thực tế `D01`–`D08`, `D10`–`D15`.)*
+
+| ID | Phạm vi | Thay đổi (Lab 2 → Lab 3) & Lý do | Bằng chứng / Trạng thái |
+|---|---|---|---|
+| `D01` | `A01` Auth | Bổ sung nút Google Sign-In cạnh email/password để đáp ứng §6 Auth mà không mất bộ màn `A01a–d` | Code & ảnh auth (`evidence/auth/01..03`); Figma giữ baseline |
+| `D02` | `AuthGate` / `P03` | Chặn người dùng chưa đăng nhập vào nội dung (`signed-out -> A01a`); giữ deep link mở lại đích sau login (ảnh hưởng persona P03) | Đã triển khai & test `TC01`, `TC17` |
+| `D03` | `A10` → `L3-01/02` | Thêm khu demo Firebase (`Tiện ích Firebase`) và `Xuất lịch tham gia` dưới Tài khoản | [D03 before/after](../evidence/design-changes/D03-firebase-tools/README.md) |
+| `D04` | `A06` / `A11` / `A12` | Làm rõ `A06` chỉ là xác nhận đăng ký (không phải vé QR cá nhân), `A11` quét QR của CLB, `A12` che email/SĐT | Đã triển khai theo `screen-spec.md` |
+| `D05` | Điều hướng & `A10`/`A12` | Giữ pending route sau login, hỗ trợ sửa hồ sơ tại `A10`, `A12` trả về kết quả đã check-in hợp lệ | Đã triển khai |
+| `D06` | Responsive & Touch | Chuẩn hóa vùng chạm tối thiểu `48dp` (thay 44dp), kiểm layout tại `360dp` và `412dp` | Đã kiểm chứng bằng widget tests |
+| `D07` | `A10` Email Google | Email tài khoản Google ở `A10` là chỉ đọc theo provider; không tự gộp provider trùng email | Code & `TC11` đạt 3/3 (100%) |
+| `D08` | `A05` / `A08` / `A11` | Thêm nhãn sự kiện đang chờ và nút `Thử lại cùng thao tác` dùng `operationId` idempotent khi mất mạng | [D08 before/after](../evidence/design-changes/D08-network-recovery/README.md) |
+| `D10` | Khởi tạo Firebase | Thêm màn loading/retry khi khởi tạo Firebase timeout (45s) để phân biệt lỗi mạng với thiếu config | Đã triển khai & unit test (`bootstrap_test`) |
+| `D11` | `A02` / `A03` | Tách nhãn CLB khỏi viền card, tăng khoảng cách chip/empty state để tránh chữ đè viền | [D11 before/after](../evidence/design-changes/D11-discover-filters/README.md) |
+| `D12` | `A02` vs `A03` | Phân tách vai trò: `A02` giữ tối đa 3 gợi ý (theo Remote Config) và bỏ nút `Xem tất cả`; tìm kiếm/lọc đầy đủ chuyển vào `A03` | Đã triển khai & kiểm chứng E2E |
+| `D13` | `A10` & `A01c` | Tinh gọn `A10`, giữ lối vào `Dịch vụ Firebase` theo §3, căn giữa email trên `A01c`, điều hướng đăng nhập từ Account về `A02` | Đã triển khai |
+| `D14` | `A02` / `A04` | Dùng 5 ảnh bìa AI đóng gói trong `assets/event-covers/` qua `coverKey` (fallback `coverUrl` HTTPS) thay màu cam đơn sắc | Đã triển khai trên app & Firestore |
+| `D15` | Toàn bộ màn production | Chuẩn hóa `AppTopBar`, `AppButton`, `AppConfirmationDialog`, `AppChoiceChip`, contrast hint `#5F6B7A` (5.43:1), `body ≥ 14sp`, tách `ScannerViewModel` (`AUD01–AUD02`) | Đã sửa tại `9bd5bd8`, `c3273ec`; 73/73 Flutter tests pass |
 
 ## Quyết định triển khai mới 04/11/2026
 
