@@ -13,9 +13,6 @@ analyzer:
   exclude:
     - build/**
     - android/**
-    # Independent packages have their own dependencies and validation commands.
-    - web/**
-    - packages/**
 
 linter:
   # The lint rules applied to this project can be customized in the

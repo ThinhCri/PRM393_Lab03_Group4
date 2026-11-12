@@ -31,8 +31,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-packages/*/build/
-web/build/
 /coverage/
 .env
 .env.*
@@ -68,5 +66,6 @@ evidence/artemis/local-runs/
 
 # Local Firebase client configuration (download separately from the shared project)
 **/google-services.json
+!android/app/google-services.json
 **/GoogleService-Info.plist
 lib/firebase_options.dart
